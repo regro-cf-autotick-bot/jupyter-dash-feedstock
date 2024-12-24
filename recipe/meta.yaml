@@ -7,30 +7,32 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/jupyter-dash-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/jupyter-dash-{{ version }}.tar.gz
   sha256: d546c7c25a2867c14c95a48af0ad572803b26915a5ce6052158c9dede4dbf48c
 
 build:
-  number: 1
+  number: 2
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.5
+    - python {{ python_min }}
   run:
     - ansi2html
     - dash
     - flask
     - ipykernel
     - ipython
-    - python >=3.5
+    - python >={{ python_min }}
     - requests
     - retrying
     - nest-asyncio
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - jupyter_dash
 
